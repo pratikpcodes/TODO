@@ -1,6 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import "./index.css";
 import { TodoProvider } from "./Context/TodoContext";
+import TodoForm from "./Components/TodoForm";
+import TodoItem from "./Components/TodoItem";
 function App() {
   const [todos, setTodos] = useState([]);
 
@@ -56,16 +59,28 @@ function App() {
 
   return (
     <TodoProvider
-      value={{ todos, addTodo, updatedTodo, deleteTodo, toggleCmp }}
+      value={{ todos, addTodo, updatedTodo, deleteTodo, toggleCmp}}
     >
-      <div className="bg-[#172842] min-h-screen py-8">
+      <div className="bg-[#14171b] min-h-screen py-8">
         <div className="w-full max-w-2xl mx-auto shadow-md rounded-lg px-4 py-3 text-white">
           <h1 className="text-2xl font-bold text-center mb-8 mt-2">
             Manage Your Todos
           </h1>
-          <div className="mb-4">{/* Todo form goes here */}</div>
+          <div className="mb-4"><TodoForm/></div>
           <div className="flex flex-wrap gap-y-3">
-            {/*Loop and Add TodoItem here */}
+            {todos.map((todo)=>(
+       
+       // keys to verify each todo is diff
+       //u can use index but use unique id to improve perf
+       // reason: gayab hua toh dikkat hoga
+       <div 
+        className="w-full"
+        key={todo.id}>
+          <TodoItem todo={todo}/>
+        
+          
+          </div>
+            ))}
           </div>
         </div>
       </div>
